@@ -16,6 +16,7 @@ public class Worker extends AbstractVerticle {
 
     worker.registerWorkflowImplementationTypes(CurrentRateWorkflowimpl.class);
     worker.registerWorkflowImplementationTypes(ReverseRateWorkflowimpl.class);
+    worker.registerActivitiesImplementations(new CurrentRateActivityimpl());
 
     
     // Start polling the Task Queue.
