@@ -9,6 +9,5 @@ public interface CurrentRateWorkflow {
   // @WorkflowMethod
   // public double EgpToUsdRate(double EGP);
 
-  @WorkflowMethod
-  public double currentUsdToEgpRate();
+  @WorkflowMethod public double currentUsdToEgpRate();
 }

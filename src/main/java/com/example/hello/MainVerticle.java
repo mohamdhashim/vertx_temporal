@@ -13,6 +13,5 @@ public class MainVerticle extends AbstractVerticle {
     vertx.deployVerticle(new CurrentRateVerticle());
     vertx.deployVerticle(new ReverseRateVerticle());
     vertx.deployVerticle(new Worker());
-
   }
 }
