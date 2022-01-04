@@ -6,6 +6,5 @@ import io.temporal.workflow.WorkflowMethod;
 @WorkflowInterface
 public interface ReverseRateWorkflow {
 
-  @WorkflowMethod
-  public double EgpToUsdRate(double rate, double count);
+  @WorkflowMethod public double EgpToUsdRate(double rate, double count);
 }
