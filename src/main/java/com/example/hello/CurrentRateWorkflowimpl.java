@@ -18,7 +18,7 @@ public class CurrentRateWorkflowimpl implements CurrentRateWorkflow {
   @Override
   public double currentUsdToEgpRate() {
     ActivityOptions options = ActivityOptions.newBuilder()
-            .setScheduleToCloseTimeout(Duration.ofSeconds(2))
+            .setScheduleToCloseTimeout(Duration.ofSeconds(5))
             .build();
 
     final CurrentRateActivity rate = Workflow.newActivityStub(CurrentRateActivity.class, options);
