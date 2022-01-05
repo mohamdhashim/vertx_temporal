@@ -4,12 +4,6 @@ import io.temporal.activity.ActivityOptions;
 import io.temporal.workflow.Workflow;
 import io.vertx.core.impl.logging.Logger;
 import io.vertx.core.impl.logging.LoggerFactory;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.time.Duration;
 
 public class CurrentRateWorkflowimpl implements CurrentRateWorkflow {
