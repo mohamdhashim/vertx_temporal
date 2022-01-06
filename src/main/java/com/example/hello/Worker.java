@@ -14,16 +14,18 @@ public class Worker extends AbstractVerticle {
     WorkflowClient client = WorkflowClient.newInstance(service);
 
     WorkerFactory factory = WorkerFactory.newInstance(client);
-    io.temporal.worker.Worker worker = factory.newWorker(Shared.Currency_Converter_TASK_QUEUE);
+    io.temporal.worker.Worker worker =
+        factory.newWorker(Shared.Currency_Converter_TASK_QUEUE);
 
-    ActivityCompletionClient completionClient = client.newActivityCompletionClient();
+    ActivityCompletionClient completionClient =
+        client.newActivityCompletionClient();
     Vertx vertx = Vertx.vertx();
 
     worker.registerWorkflowImplementationTypes(CurrentRateWorkflowimpl.class);
     worker.registerWorkflowImplementationTypes(ReverseRateWorkflowimpl.class);
-    worker.registerActivitiesImplementations(new CurrentRateActivityimpl(completionClient,vertx));
+    worker.registerActivitiesImplementations(
+        new CurrentRateActivityimpl(completionClient, vertx));
 
-    
     // Start polling the Task Queue.
     factory.start();
   }

@@ -6,9 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Rates {
 
-    @JsonProperty("EGP")
-    public Double EGP;
+  @JsonProperty("EGP") public Double EGP;
 
-    @JsonProperty("AUD")
-    public Double AUD;
+  @JsonProperty("AUD") public Double AUD;
 }

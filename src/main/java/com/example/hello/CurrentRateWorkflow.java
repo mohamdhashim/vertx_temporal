@@ -6,6 +6,5 @@ import io.temporal.workflow.WorkflowMethod;
 @WorkflowInterface
 public interface CurrentRateWorkflow {
 
-  @WorkflowMethod
-  public double currentUsdToEgpRate();
+  @WorkflowMethod public double currentUsdToEgpRate();
 }

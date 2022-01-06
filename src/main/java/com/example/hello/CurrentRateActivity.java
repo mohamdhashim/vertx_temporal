@@ -6,8 +6,5 @@ import io.temporal.activity.ActivityMethod;
 @ActivityInterface
 public interface CurrentRateActivity {
 
-    @ActivityMethod
-    public double currentUsdToEgpRate();
-
-
+  @ActivityMethod public double currentUsdToEgpRate();
 }
