@@ -1,5 +1,6 @@
 package com.example.hello;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import io.temporal.activity.Activity;
 import io.temporal.activity.ActivityExecutionContext;
 import io.temporal.activity.ActivityInfo;
@@ -9,6 +10,8 @@ import io.vertx.core.impl.logging.Logger;
 import io.vertx.core.impl.logging.LoggerFactory;
 import io.vertx.ext.web.client.WebClient;
 import org.json.JSONObject;
+
+import java.io.IOException;
 import java.net.ConnectException;
 import java.util.concurrent.ForkJoinPool;
 
@@ -25,7 +28,7 @@ public class CurrentRateActivityimpl implements CurrentRateActivity {
 
 
     @Override
-    public double currentUsdToEgpRate() {
+    public double currentUsdToEgpRate(){
 
         ActivityExecutionContext ctx = Activity.getExecutionContext();
         ActivityInfo info = ctx.getInfo();
@@ -44,12 +47,13 @@ public class CurrentRateActivityimpl implements CurrentRateActivity {
                 .get(8080, "freecurrencyapi.net", "/api/v2/latest?apikey=1b9dc950-67c2-11ec-818d-df835416afa6")
                 .send()
                 .onSuccess(response -> {
-                    JSONObject obj = new JSONObject(response.body().toString("ISO-8859-1"));
-                    obj = obj.getJSONObject("data");
-                    System.out.println("Got HTTP response with status " + response.statusCode() + "with data " +
-                            obj.getDouble("EGP"));
-                    double EGPRate = obj.getDouble("EGP");
-                    ForkJoinPool.commonPool().execute(() -> currentUsdToEgpRateAsync(taskToken, EGPRate));
+                    try {
+                        JsonNode json = Json.parse(response.body().toString("ISO-8859-1"));
+                        Rates rates = Json.fromJson(json, Rates.class);
+                        ForkJoinPool.commonPool().execute(() -> currentUsdToEgpRateAsync(taskToken, rates.getEGP()));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 })
                 .onFailure(fail -> {
                     failActivity(taskToken, new ConnectException());
