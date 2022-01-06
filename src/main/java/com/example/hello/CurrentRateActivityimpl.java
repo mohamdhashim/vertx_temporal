@@ -49,8 +49,8 @@ public class CurrentRateActivityimpl implements CurrentRateActivity {
                 .onSuccess(response -> {
                     try {
                         JsonNode json = Json.parse(response.body().toString("ISO-8859-1"));
-                        Rates rates = Json.fromJson(json, Rates.class);
-                        ForkJoinPool.commonPool().execute(() -> currentUsdToEgpRateAsync(taskToken, rates.getEGP()));
+                        Rates rates = Json.fromJson(json.get("data"), Rates.class);
+                        ForkJoinPool.commonPool().execute(() -> currentUsdToEgpRateAsync(taskToken, rates.EGP));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
